@@ -75,7 +75,7 @@ export default function CartPage() {
 
             <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center">
                 <button
-                    onClick={() => router.push("/")}
+                    onClick={() => router.push("/menu")}
                     className="text-primary font-medium hover:underline"
                 >
                     ← Back to Menu
