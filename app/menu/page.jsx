@@ -1,16 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCart } from "@/hooks/useCart";
 import MenuItemCard from "@/components/MenuItemCard";
 import axios from "axios";
 
 export default function MenuPage() {
   const [menu, setMenu] = useState([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const { items } = useCart();
 
   useEffect(() => {
     async function loadMenu() {
       try {
-        // For now, mock data
+        // Mock Data
         setMenu([
           { id: 1, name: "Caipirinha", description: "Classic Brazilian cocktail", price: 7.5, image: "/caipirinha.jpg" },
           { id: 2, name: "Mojito", description: "Mint, lime, and rum delight", price: 8.0, image: "/mojito.jpg" },
@@ -28,9 +32,18 @@ export default function MenuPage() {
 
   return (
     <div className="p-4 pb-24">
-      <header className="sticky top-0 bg-white z-10 py-3 border-b border-gray-200 text-center">
-        <h1 className="text-2xl font-bold text-primary">Bar do Field</h1>
-        <p className="text-sm text-gray-500">Scan · Order · Enjoy</p>
+      <header className="sticky top-0 bg-background z-10 py-3 border-b border-gray-200 flex items-center justify-between px-4">
+        <div>
+          <h1 className="text-2xl font-bold text-dark">Bar da Lua 🍸</h1>
+          <p className="text-sm text-secondary">Scan · Order · Enjoy</p>
+        </div>
+
+        <button
+          onClick={() => router.push("/tab")}
+          className="bg-accent text-dark px-4 py-2 rounded-full text-sm font-semibold shadow hover:opacity-90 transition"
+        >
+          View Tab
+        </button>
       </header>
 
       <section className="grid grid-cols-2 gap-4 mt-4">
@@ -39,14 +52,21 @@ export default function MenuPage() {
         ))}
       </section>
 
-      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-center">
-        <a
-          href="/cart"
-          className="bg-primary text-white px-6 py-3 rounded-full shadow-md w-full max-w-xs text-center font-medium"
+      <footer className="fixed bottom-0 left-0 right-0 bg-background border-t border-gray-200 p-4 flex justify-center">
+        <button
+          onClick={() => router.push("/cart")}
+          className="relative bg-primary text-white px-6 py-3 rounded-full shadow-md w-full max-w-xs text-center font-medium hover:opacity-90 transition"
         >
           View Cart
-        </a>
+          {/* Badge */}
+          {items.length > 0 && (
+            <span className="absolute -top-2 -right-2 bg-accent text-dark text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+              {items.length}
+            </span>
+          )}
+        </button>
       </footer>
     </div>
   );
 }
+

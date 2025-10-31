@@ -2,9 +2,11 @@
 import { useCart } from "@/hooks/useCart";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useTab } from "@/hooks/useTab";
 
 export default function CartPage() {
     const { items, removeItem, clear } = useCart();
+    const { addOrder } = useTab();
     const router = useRouter();
     const [loading, setLoading] = useState(false);
 
@@ -17,7 +19,13 @@ export default function CartPage() {
         try {
             // simulate sending to backend
             await new Promise((r) => setTimeout(r, 1000));
+
+            // ✅ Move items from Cart to Tab
+            addOrder(items);
+
+            // ✅ Clear cart after ordering
             clear();
+
             router.push("/success");
         } catch (e) {
             console.error(e);

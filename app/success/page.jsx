@@ -11,7 +11,7 @@ export default function SuccessPage() {
                 Thank you for your order. The bar has received it and is preparing your drinks!
             </p>
             <button
-                onClick={() => router.push("/")}
+                onClick={() => router.push("/menu")}
                 className="bg-primary text-white px-6 py-3 rounded-full font-medium hover:opacity-90"
             >
                 Back to Menu
