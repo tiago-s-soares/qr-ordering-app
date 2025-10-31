@@ -26,7 +26,7 @@ export default function CartPage() {
             // ✅ Clear cart after ordering
             clear();
 
-            router.push("/success");
+            router.push("/order-success");
         } catch (e) {
             console.error(e);
             alert("Something went wrong.");

@@ -10,6 +10,7 @@ export default function MenuPage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { items } = useCart();
+  const totalQuantity = items.reduce((sum, item) => sum + item.qty, 0);
 
   useEffect(() => {
     async function loadMenu() {
@@ -34,7 +35,7 @@ export default function MenuPage() {
     <div className="p-4 pb-24">
       <header className="sticky top-0 bg-background z-10 py-3 border-b border-gray-200 flex items-center justify-between px-4">
         <div>
-          <h1 className="text-2xl font-bold text-dark">Bar da Lua 🍸</h1>
+          <h1 className="text-2xl font-bold text-dark">Bar do Field 🍸</h1>
           <p className="text-sm text-secondary">Scan · Order · Enjoy</p>
         </div>
 
@@ -58,10 +59,9 @@ export default function MenuPage() {
           className="relative bg-primary text-white px-6 py-3 rounded-full shadow-md w-full max-w-xs text-center font-medium hover:opacity-90 transition"
         >
           View Cart
-          {/* Badge */}
-          {items.length > 0 && (
+          {totalQuantity > 0 && (
             <span className="absolute -top-2 -right-2 bg-accent text-dark text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-              {items.length}
+              {totalQuantity}
             </span>
           )}
         </button>
